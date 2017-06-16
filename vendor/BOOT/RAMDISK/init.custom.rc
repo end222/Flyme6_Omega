@@ -1,0 +1,5 @@
+# MTK project .rc configure
+
+import init.project.rc
+
+# *** DO NOT import the new rc file after this line ***
