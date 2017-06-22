@@ -836,17 +836,14 @@
 
     move-result-object v0
 
-    .line 650
-    const v1, 0x1120010
+    const v1, #android:bool@config_useVolumeKeySounds#t
 
-    .line 649
     invoke-virtual {v0, v1}, Landroid/content/res/Resources;->getBoolean(I)Z
 
     move-result v0
 
     iput-boolean v0, p0, Landroid/media/AudioManager;->mUseVolumeKeySounds:Z
 
-    .line 651
     invoke-direct {p0}, Landroid/media/AudioManager;->getContext()Landroid/content/Context;
 
     move-result-object v0
@@ -855,17 +852,14 @@
 
     move-result-object v0
 
-    .line 652
-    const v1, 0x1120079
+    const v1, #android:bool@config_useFixedVolume#t
 
-    .line 651
     invoke-virtual {v0, v1}, Landroid/content/res/Resources;->getBoolean(I)Z
 
     move-result v0
 
     iput-boolean v0, p0, Landroid/media/AudioManager;->mUseFixedVolume:Z
 
-    .line 647
     return-void
 .end method
 
@@ -3019,14 +3013,13 @@
     .param p3, "flags"    # I
 
     .prologue
-    .line 889
     sget-object v1, Landroid/media/AudioManager;->TAG:Ljava/lang/String;
 
     new-instance v2, Ljava/lang/StringBuilder;
 
     invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string/jumbo v3, "adjustSuggestedStreamVolume: Direction = "
+    const-string v3, "adjustSuggestedStreamVolume: Direction = "
 
     invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
@@ -3054,7 +3047,10 @@
 
     invoke-static {v1, v2}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 891
+    invoke-direct/range {p0 .. p3}, Landroid/media/AudioManager;->adjustFlymeFlags(III)I
+
+    move-result p3
+
     invoke-direct {p0}, Landroid/media/AudioManager;->getContext()Landroid/content/Context;
 
     move-result-object v1
@@ -3063,11 +3059,9 @@
 
     move-result-object v0
 
-    .line 892
     .local v0, "helper":Landroid/media/session/MediaSessionLegacyHelper;
     invoke-virtual {v0, p2, p1, p3}, Landroid/media/session/MediaSessionLegacyHelper;->sendAdjustVolumeBy(III)V
 
-    .line 888
     return-void
 .end method
 
@@ -3077,14 +3071,13 @@
     .param p2, "flags"    # I
 
     .prologue
-    .line 859
     sget-object v1, Landroid/media/AudioManager;->TAG:Ljava/lang/String;
 
     new-instance v2, Ljava/lang/StringBuilder;
 
     invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string/jumbo v3, "adjustVolume: Flags = "
+    const-string v3, "adjustVolume: Flags = "
 
     invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
@@ -3094,7 +3087,7 @@
 
     move-result-object v2
 
-    const-string/jumbo v3, ", direction = "
+    const-string v3, ", direction = "
 
     invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
@@ -3110,6 +3103,7 @@
 
     invoke-static {v1, v2}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
+    .line 891
     .line 860
     invoke-direct {p0}, Landroid/media/AudioManager;->getContext()Landroid/content/Context;
 
@@ -3529,10 +3523,8 @@
 
     move-result-object v2
 
-    .line 3347
-    const v3, 0x112009c
+    const v3, #android:bool@config_supportMicNearUltrasound#t
 
-    .line 3346
     invoke-virtual {v2, v3}, Landroid/content/res/Resources;->getBoolean(I)Z
 
     move-result v2
@@ -3562,10 +3554,8 @@
 
     move-result-object v2
 
-    .line 3350
-    const v3, 0x112009d
+    const v3, #android:bool@config_supportSpeakerNearUltrasound#t
 
-    .line 3349
     invoke-virtual {v2, v3}, Landroid/content/res/Resources;->getBoolean(I)Z
 
     move-result v2
@@ -4178,10 +4168,8 @@
 
     move-result-object v0
 
-    .line 1390
-    const v1, 0x112004f
+    const v1, #android:bool@config_bluetooth_sco_off_call#t
 
-    .line 1389
     invoke-virtual {v0, v1}, Landroid/content/res/Resources;->getBoolean(I)Z
 
     move-result v0
@@ -8072,4 +8060,36 @@
 
     .line 2775
     return-void
+.end method
+
+.method private adjustFlymeFlags(III)I
+    .locals 2
+    .param p1, "direction"    # I
+    .param p2, "suggestedStreamType"    # I
+    .param p3, "flags"    # I
+
+    .prologue
+    invoke-direct {p0}, Landroid/media/AudioManager;->getContext()Landroid/content/Context;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Landroid/content/Context;->getOpPackageName()Ljava/lang/String;
+
+    move-result-object v0
+
+    .local v0, "packageName":Ljava/lang/String;
+    if-nez p3, :cond_0
+
+    const-string v1, "com.android.systemui"
+
+    invoke-virtual {v0, v1}, Ljava/lang/String;->contains(Ljava/lang/CharSequence;)Z
+
+    move-result v1
+
+    if-eqz v1, :cond_0
+
+    const/16 p3, 0x10
+
+    :cond_0
+    return p3
 .end method

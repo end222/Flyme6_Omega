@@ -6,6 +6,7 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
+        Landroid/content/pm/PackageParser$FlymeInjector;,
         Landroid/content/pm/PackageParser$NewPermissionInfo;,
         Landroid/content/pm/PackageParser$SplitPermissionInfo;,
         Landroid/content/pm/PackageParser$ParsePackageItemArgs;,
@@ -4560,6 +4561,10 @@
 
     iput v3, v2, Landroid/content/pm/ActivityInfo;->uiOptions:I
 
+    move-object/from16 v0, v19
+
+    invoke-static {v14, v0}, Landroid/content/pm/PackageParser$FlymeInjector;->parseAccessArgsFromResource(Landroid/content/pm/PackageParser$Activity;Landroid/content/res/TypedArray;)V
+
     .line 3212
     const/16 v2, 0x1b
 
@@ -5615,29 +5620,27 @@
 
     invoke-static {v2, v3}, Landroid/util/Slog;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 3358
     iget-object v2, v14, Landroid/content/pm/PackageParser$Activity;->info:Landroid/content/pm/ActivityInfo;
 
     const/4 v3, 0x0
 
     iput-boolean v3, v2, Landroid/content/pm/ActivityInfo;->exported:Z
 
-    .line 3359
     const/16 v20, 0x1
 
     .local v20, "setExported":Z
     goto/16 :goto_6
 
-    .line 3379
     .end local v20    # "setExported":Z
     :cond_21
     invoke-interface/range {p3 .. p3}, Lorg/xmlpull/v1/XmlPullParser;->getDepth()I
 
     move-result v16
 
-    .line 3381
     .local v16, "outerDepth":I
     :cond_22
+    invoke-static {v14}, Landroid/content/pm/PackageParser$FlymeInjector;->parseAccessMetaFromResource(Landroid/content/pm/PackageParser$Activity;)V
+
     :goto_8
     invoke-interface/range {p3 .. p3}, Lorg/xmlpull/v1/XmlPullParser;->next()I
 
@@ -6665,6 +6668,12 @@
     move-object/from16 v0, v17
 
     iput v2, v0, Landroid/content/pm/ActivityInfo;->maxRecents:I
+
+    move-object/from16 v0, v17
+
+    move-object/from16 v1, v25
+
+    invoke-static {v0, v1}, Landroid/content/pm/PackageParser$FlymeInjector;->copyAccessArgs(Landroid/content/pm/ActivityInfo;Landroid/content/pm/PackageParser$Activity;)V
 
     .line 3532
     new-instance v15, Landroid/content/pm/PackageParser$Activity;
@@ -22341,26 +22350,33 @@
     .param p2, "requireFilename"    # Z
 
     .prologue
-    .line 1233
+    invoke-static/range {p0 .. p0}, Landroid/content/pm/PackageParser$FlymeInjector;->validateName(Ljava/lang/String;)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_0
+
+    const/4 v0, 0x0
+
+    return-object v0
+
+    :cond_0
     invoke-virtual {p0}, Ljava/lang/String;->length()I
 
     move-result v0
 
-    .line 1234
     .local v0, "N":I
     const/4 v3, 0x0
 
-    .line 1235
     .local v3, "hasSep":Z
     const/4 v2, 0x1
 
-    .line 1236
     .local v2, "front":Z
     const/4 v4, 0x0
 
     .local v4, "i":I
     :goto_0
-    if-ge v4, v0, :cond_7
+    if-ge v4, v0, :cond_8
 
     .line 1237
     invoke-virtual {p0, v4}, Ljava/lang/String;->charAt(I)C
@@ -22371,56 +22387,56 @@
     .local v1, "c":C
     const/16 v5, 0x61
 
-    if-lt v1, v5, :cond_2
+    if-lt v1, v5, :cond_3
 
     const/16 v5, 0x7a
 
-    if-gt v1, v5, :cond_2
+    if-gt v1, v5, :cond_3
 
     .line 1239
-    :cond_0
+    :cond_1
     const/4 v2, 0x0
 
     .line 1236
-    :cond_1
+    :cond_2
     :goto_1
     add-int/lit8 v4, v4, 0x1
 
     goto :goto_0
 
     .line 1238
-    :cond_2
+    :cond_3
     const/16 v5, 0x41
 
-    if-lt v1, v5, :cond_3
+    if-lt v1, v5, :cond_4
 
     const/16 v5, 0x5a
 
-    if-le v1, v5, :cond_0
+    if-le v1, v5, :cond_1
 
     .line 1242
-    :cond_3
-    if-nez v2, :cond_5
+    :cond_4
+    if-nez v2, :cond_6
 
     .line 1243
     const/16 v5, 0x30
 
-    if-lt v1, v5, :cond_4
+    if-lt v1, v5, :cond_5
 
     const/16 v5, 0x39
 
-    if-le v1, v5, :cond_1
+    if-le v1, v5, :cond_2
 
-    :cond_4
+    :cond_5
     const/16 v5, 0x5f
 
-    if-eq v1, v5, :cond_1
+    if-eq v1, v5, :cond_2
 
     .line 1247
-    :cond_5
+    :cond_6
     const/16 v5, 0x2e
 
-    if-ne v1, v5, :cond_6
+    if-ne v1, v5, :cond_7
 
     .line 1248
     const/4 v3, 0x1
@@ -22432,7 +22448,7 @@
     goto :goto_1
 
     .line 1252
-    :cond_6
+    :cond_7
     new-instance v5, Ljava/lang/StringBuilder;
 
     invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
@@ -22461,20 +22477,20 @@
 
     .line 1254
     .end local v1    # "c":C
-    :cond_7
-    if-eqz p2, :cond_8
+    :cond_8
+    if-eqz p2, :cond_9
 
     invoke-static {p0}, Landroid/os/FileUtils;->isValidExtFilename(Ljava/lang/String;)Z
 
     move-result v5
 
-    if-eqz v5, :cond_9
+    if-eqz v5, :cond_a
 
     .line 1257
-    :cond_8
-    if-nez v3, :cond_a
+    :cond_9
+    if-nez v3, :cond_b
 
-    if-eqz p1, :cond_a
+    if-eqz p1, :cond_b
 
     .line 1258
     const-string/jumbo v5, "must have at least one \'.\' separator"
@@ -22484,13 +22500,13 @@
     return-object v5
 
     .line 1255
-    :cond_9
+    :cond_a
     const-string/jumbo v5, "Invalid filename"
 
     return-object v5
 
     .line 1258
-    :cond_a
+    :cond_b
     const/4 v5, 0x0
 
     goto :goto_2

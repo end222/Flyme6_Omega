@@ -27,23 +27,100 @@
     .param p1, "remote"    # Landroid/os/IBinder;
 
     .prologue
-    .line 205
+    .line 223
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 207
+    .line 225
     iput-object p1, p0, Landroid/hardware/fingerprint/IFingerprintService$Stub$Proxy;->mRemote:Landroid/os/IBinder;
 
-    .line 205
+    .line 223
     return-void
 .end method
 
 
 # virtual methods
+.method public addLockoutResetCallback(Landroid/hardware/fingerprint/IFingerprintServiceLockoutResetCallback;)V
+    .locals 5
+    .param p1, "callback"    # Landroid/hardware/fingerprint/IFingerprintServiceLockoutResetCallback;
+    .annotation system Ldalvik/annotation/Throws;
+        value = {
+            Landroid/os/RemoteException;
+        }
+    .end annotation
+
+    .prologue
+    const/4 v2, 0x0
+
+    .line 500
+    invoke-static {}, Landroid/os/Parcel;->obtain()Landroid/os/Parcel;
+
+    move-result-object v0
+
+    .line 501
+    .local v0, "_data":Landroid/os/Parcel;
+    invoke-static {}, Landroid/os/Parcel;->obtain()Landroid/os/Parcel;
+
+    move-result-object v1
+
+    .line 503
+    .local v1, "_reply":Landroid/os/Parcel;
+    :try_start_0
+    const-string/jumbo v3, "android.hardware.fingerprint.IFingerprintService"
+
+    invoke-virtual {v0, v3}, Landroid/os/Parcel;->writeInterfaceToken(Ljava/lang/String;)V
+
+    .line 504
+    if-eqz p1, :cond_0
+
+    invoke-interface {p1}, Landroid/hardware/fingerprint/IFingerprintServiceLockoutResetCallback;->asBinder()Landroid/os/IBinder;
+
+    move-result-object v2
+
+    :cond_0
+    invoke-virtual {v0, v2}, Landroid/os/Parcel;->writeStrongBinder(Landroid/os/IBinder;)V
+
+    .line 505
+    iget-object v2, p0, Landroid/hardware/fingerprint/IFingerprintService$Stub$Proxy;->mRemote:Landroid/os/IBinder;
+
+    const/16 v3, 0xe
+
+    const/4 v4, 0x0
+
+    invoke-interface {v2, v3, v0, v1, v4}, Landroid/os/IBinder;->transact(ILandroid/os/Parcel;Landroid/os/Parcel;I)Z
+
+    .line 506
+    invoke-virtual {v1}, Landroid/os/Parcel;->readException()V
+    :try_end_0
+    .catchall {:try_start_0 .. :try_end_0} :catchall_0
+
+    .line 509
+    invoke-virtual {v1}, Landroid/os/Parcel;->recycle()V
+
+    .line 510
+    invoke-virtual {v0}, Landroid/os/Parcel;->recycle()V
+
+    .line 498
+    return-void
+
+    .line 508
+    :catchall_0
+    move-exception v2
+
+    .line 509
+    invoke-virtual {v1}, Landroid/os/Parcel;->recycle()V
+
+    .line 510
+    invoke-virtual {v0}, Landroid/os/Parcel;->recycle()V
+
+    .line 508
+    throw v2
+.end method
+
 .method public asBinder()Landroid/os/IBinder;
     .locals 1
 
     .prologue
-    .line 211
+    .line 229
     iget-object v0, p0, Landroid/hardware/fingerprint/IFingerprintService$Stub$Proxy;->mRemote:Landroid/os/IBinder;
 
     return-object v0
@@ -66,34 +143,34 @@
     .prologue
     const/4 v2, 0x0
 
-    .line 221
+    .line 239
     invoke-static {}, Landroid/os/Parcel;->obtain()Landroid/os/Parcel;
 
     move-result-object v0
 
-    .line 222
+    .line 240
     .local v0, "_data":Landroid/os/Parcel;
     invoke-static {}, Landroid/os/Parcel;->obtain()Landroid/os/Parcel;
 
     move-result-object v1
 
-    .line 224
+    .line 242
     .local v1, "_reply":Landroid/os/Parcel;
     :try_start_0
     const-string/jumbo v3, "android.hardware.fingerprint.IFingerprintService"
 
     invoke-virtual {v0, v3}, Landroid/os/Parcel;->writeInterfaceToken(Ljava/lang/String;)V
 
-    .line 225
+    .line 243
     invoke-virtual {v0, p1}, Landroid/os/Parcel;->writeStrongBinder(Landroid/os/IBinder;)V
 
-    .line 226
+    .line 244
     invoke-virtual {v0, p2, p3}, Landroid/os/Parcel;->writeLong(J)V
 
-    .line 227
+    .line 245
     invoke-virtual {v0, p4}, Landroid/os/Parcel;->writeInt(I)V
 
-    .line 228
+    .line 246
     if-eqz p5, :cond_0
 
     invoke-interface {p5}, Landroid/hardware/fingerprint/IFingerprintServiceReceiver;->asBinder()Landroid/os/IBinder;
@@ -103,88 +180,16 @@
     :cond_0
     invoke-virtual {v0, v2}, Landroid/os/Parcel;->writeStrongBinder(Landroid/os/IBinder;)V
 
-    .line 229
+    .line 247
     invoke-virtual {v0, p6}, Landroid/os/Parcel;->writeInt(I)V
 
-    .line 230
-    invoke-virtual {v0, p7}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
-
-    .line 231
-    iget-object v2, p0, Landroid/hardware/fingerprint/IFingerprintService$Stub$Proxy;->mRemote:Landroid/os/IBinder;
-
-    const/4 v3, 0x1
-
-    const/4 v4, 0x0
-
-    invoke-interface {v2, v3, v0, v1, v4}, Landroid/os/IBinder;->transact(ILandroid/os/Parcel;Landroid/os/Parcel;I)Z
-
-    .line 232
-    invoke-virtual {v1}, Landroid/os/Parcel;->readException()V
-    :try_end_0
-    .catchall {:try_start_0 .. :try_end_0} :catchall_0
-
-    .line 235
-    invoke-virtual {v1}, Landroid/os/Parcel;->recycle()V
-
-    .line 236
-    invoke-virtual {v0}, Landroid/os/Parcel;->recycle()V
-
-    .line 219
-    return-void
-
-    .line 234
-    :catchall_0
-    move-exception v2
-
-    .line 235
-    invoke-virtual {v1}, Landroid/os/Parcel;->recycle()V
-
-    .line 236
-    invoke-virtual {v0}, Landroid/os/Parcel;->recycle()V
-
-    .line 234
-    throw v2
-.end method
-
-.method public cancelAuthentication(Landroid/os/IBinder;Ljava/lang/String;)V
-    .locals 5
-    .param p1, "token"    # Landroid/os/IBinder;
-    .param p2, "opPackageName"    # Ljava/lang/String;
-    .annotation system Ldalvik/annotation/Throws;
-        value = {
-            Landroid/os/RemoteException;
-        }
-    .end annotation
-
-    .prologue
-    .line 243
-    invoke-static {}, Landroid/os/Parcel;->obtain()Landroid/os/Parcel;
-
-    move-result-object v0
-
-    .line 244
-    .local v0, "_data":Landroid/os/Parcel;
-    invoke-static {}, Landroid/os/Parcel;->obtain()Landroid/os/Parcel;
-
-    move-result-object v1
-
-    .line 246
-    .local v1, "_reply":Landroid/os/Parcel;
-    :try_start_0
-    const-string/jumbo v2, "android.hardware.fingerprint.IFingerprintService"
-
-    invoke-virtual {v0, v2}, Landroid/os/Parcel;->writeInterfaceToken(Ljava/lang/String;)V
-
-    .line 247
-    invoke-virtual {v0, p1}, Landroid/os/Parcel;->writeStrongBinder(Landroid/os/IBinder;)V
-
     .line 248
-    invoke-virtual {v0, p2}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
+    invoke-virtual {v0, p7}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
     .line 249
     iget-object v2, p0, Landroid/hardware/fingerprint/IFingerprintService$Stub$Proxy;->mRemote:Landroid/os/IBinder;
 
-    const/4 v3, 0x2
+    const/4 v3, 0x1
 
     const/4 v4, 0x0
 
@@ -201,7 +206,7 @@
     .line 254
     invoke-virtual {v0}, Landroid/os/Parcel;->recycle()V
 
-    .line 241
+    .line 237
     return-void
 
     .line 252
@@ -218,6 +223,78 @@
     throw v2
 .end method
 
+.method public cancelAuthentication(Landroid/os/IBinder;Ljava/lang/String;)V
+    .locals 5
+    .param p1, "token"    # Landroid/os/IBinder;
+    .param p2, "opPackageName"    # Ljava/lang/String;
+    .annotation system Ldalvik/annotation/Throws;
+        value = {
+            Landroid/os/RemoteException;
+        }
+    .end annotation
+
+    .prologue
+    .line 261
+    invoke-static {}, Landroid/os/Parcel;->obtain()Landroid/os/Parcel;
+
+    move-result-object v0
+
+    .line 262
+    .local v0, "_data":Landroid/os/Parcel;
+    invoke-static {}, Landroid/os/Parcel;->obtain()Landroid/os/Parcel;
+
+    move-result-object v1
+
+    .line 264
+    .local v1, "_reply":Landroid/os/Parcel;
+    :try_start_0
+    const-string/jumbo v2, "android.hardware.fingerprint.IFingerprintService"
+
+    invoke-virtual {v0, v2}, Landroid/os/Parcel;->writeInterfaceToken(Ljava/lang/String;)V
+
+    .line 265
+    invoke-virtual {v0, p1}, Landroid/os/Parcel;->writeStrongBinder(Landroid/os/IBinder;)V
+
+    .line 266
+    invoke-virtual {v0, p2}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
+
+    .line 267
+    iget-object v2, p0, Landroid/hardware/fingerprint/IFingerprintService$Stub$Proxy;->mRemote:Landroid/os/IBinder;
+
+    const/4 v3, 0x2
+
+    const/4 v4, 0x0
+
+    invoke-interface {v2, v3, v0, v1, v4}, Landroid/os/IBinder;->transact(ILandroid/os/Parcel;Landroid/os/Parcel;I)Z
+
+    .line 268
+    invoke-virtual {v1}, Landroid/os/Parcel;->readException()V
+    :try_end_0
+    .catchall {:try_start_0 .. :try_end_0} :catchall_0
+
+    .line 271
+    invoke-virtual {v1}, Landroid/os/Parcel;->recycle()V
+
+    .line 272
+    invoke-virtual {v0}, Landroid/os/Parcel;->recycle()V
+
+    .line 259
+    return-void
+
+    .line 270
+    :catchall_0
+    move-exception v2
+
+    .line 271
+    invoke-virtual {v1}, Landroid/os/Parcel;->recycle()V
+
+    .line 272
+    invoke-virtual {v0}, Landroid/os/Parcel;->recycle()V
+
+    .line 270
+    throw v2
+.end method
+
 .method public cancelEnrollment(Landroid/os/IBinder;)V
     .locals 5
     .param p1, "token"    # Landroid/os/IBinder;
@@ -228,28 +305,28 @@
     .end annotation
 
     .prologue
-    .line 282
+    .line 300
     invoke-static {}, Landroid/os/Parcel;->obtain()Landroid/os/Parcel;
 
     move-result-object v0
 
-    .line 283
+    .line 301
     .local v0, "_data":Landroid/os/Parcel;
     invoke-static {}, Landroid/os/Parcel;->obtain()Landroid/os/Parcel;
 
     move-result-object v1
 
-    .line 285
+    .line 303
     .local v1, "_reply":Landroid/os/Parcel;
     :try_start_0
     const-string/jumbo v2, "android.hardware.fingerprint.IFingerprintService"
 
     invoke-virtual {v0, v2}, Landroid/os/Parcel;->writeInterfaceToken(Ljava/lang/String;)V
 
-    .line 286
+    .line 304
     invoke-virtual {v0, p1}, Landroid/os/Parcel;->writeStrongBinder(Landroid/os/IBinder;)V
 
-    .line 287
+    .line 305
     iget-object v2, p0, Landroid/hardware/fingerprint/IFingerprintService$Stub$Proxy;->mRemote:Landroid/os/IBinder;
 
     const/4 v3, 0x4
@@ -258,31 +335,31 @@
 
     invoke-interface {v2, v3, v0, v1, v4}, Landroid/os/IBinder;->transact(ILandroid/os/Parcel;Landroid/os/Parcel;I)Z
 
-    .line 288
+    .line 306
     invoke-virtual {v1}, Landroid/os/Parcel;->readException()V
     :try_end_0
     .catchall {:try_start_0 .. :try_end_0} :catchall_0
 
-    .line 291
+    .line 309
     invoke-virtual {v1}, Landroid/os/Parcel;->recycle()V
 
-    .line 292
+    .line 310
     invoke-virtual {v0}, Landroid/os/Parcel;->recycle()V
 
-    .line 280
+    .line 298
     return-void
 
-    .line 290
+    .line 308
     :catchall_0
     move-exception v2
 
-    .line 291
+    .line 309
     invoke-virtual {v1}, Landroid/os/Parcel;->recycle()V
 
-    .line 292
+    .line 310
     invoke-virtual {v0}, Landroid/os/Parcel;->recycle()V
 
-    .line 290
+    .line 308
     throw v2
 .end method
 
@@ -302,34 +379,34 @@
     .prologue
     const/4 v2, 0x0
 
-    .line 261
+    .line 279
     invoke-static {}, Landroid/os/Parcel;->obtain()Landroid/os/Parcel;
 
     move-result-object v0
 
-    .line 262
+    .line 280
     .local v0, "_data":Landroid/os/Parcel;
     invoke-static {}, Landroid/os/Parcel;->obtain()Landroid/os/Parcel;
 
     move-result-object v1
 
-    .line 264
+    .line 282
     .local v1, "_reply":Landroid/os/Parcel;
     :try_start_0
     const-string/jumbo v3, "android.hardware.fingerprint.IFingerprintService"
 
     invoke-virtual {v0, v3}, Landroid/os/Parcel;->writeInterfaceToken(Ljava/lang/String;)V
 
-    .line 265
+    .line 283
     invoke-virtual {v0, p1}, Landroid/os/Parcel;->writeStrongBinder(Landroid/os/IBinder;)V
 
-    .line 266
+    .line 284
     invoke-virtual {v0, p2}, Landroid/os/Parcel;->writeByteArray([B)V
 
-    .line 267
+    .line 285
     invoke-virtual {v0, p3}, Landroid/os/Parcel;->writeInt(I)V
 
-    .line 268
+    .line 286
     if-eqz p4, :cond_0
 
     invoke-interface {p4}, Landroid/hardware/fingerprint/IFingerprintServiceReceiver;->asBinder()Landroid/os/IBinder;
@@ -339,10 +416,10 @@
     :cond_0
     invoke-virtual {v0, v2}, Landroid/os/Parcel;->writeStrongBinder(Landroid/os/IBinder;)V
 
-    .line 269
+    .line 287
     invoke-virtual {v0, p5}, Landroid/os/Parcel;->writeInt(I)V
 
-    .line 270
+    .line 288
     iget-object v2, p0, Landroid/hardware/fingerprint/IFingerprintService$Stub$Proxy;->mRemote:Landroid/os/IBinder;
 
     const/4 v3, 0x3
@@ -351,31 +428,31 @@
 
     invoke-interface {v2, v3, v0, v1, v4}, Landroid/os/IBinder;->transact(ILandroid/os/Parcel;Landroid/os/Parcel;I)Z
 
-    .line 271
+    .line 289
     invoke-virtual {v1}, Landroid/os/Parcel;->readException()V
     :try_end_0
     .catchall {:try_start_0 .. :try_end_0} :catchall_0
 
-    .line 274
+    .line 292
     invoke-virtual {v1}, Landroid/os/Parcel;->recycle()V
 
-    .line 275
+    .line 293
     invoke-virtual {v0}, Landroid/os/Parcel;->recycle()V
 
-    .line 259
+    .line 277
     return-void
 
-    .line 273
+    .line 291
     :catchall_0
     move-exception v2
 
-    .line 274
+    .line 292
     invoke-virtual {v1}, Landroid/os/Parcel;->recycle()V
 
-    .line 275
+    .line 293
     invoke-virtual {v0}, Landroid/os/Parcel;->recycle()V
 
-    .line 273
+    .line 291
     throw v2
 .end method
 
@@ -389,28 +466,28 @@
     .end annotation
 
     .prologue
-    .line 445
+    .line 463
     invoke-static {}, Landroid/os/Parcel;->obtain()Landroid/os/Parcel;
 
     move-result-object v0
 
-    .line 446
+    .line 464
     .local v0, "_data":Landroid/os/Parcel;
     invoke-static {}, Landroid/os/Parcel;->obtain()Landroid/os/Parcel;
 
     move-result-object v1
 
-    .line 449
+    .line 467
     .local v1, "_reply":Landroid/os/Parcel;
     :try_start_0
     const-string/jumbo v4, "android.hardware.fingerprint.IFingerprintService"
 
     invoke-virtual {v0, v4}, Landroid/os/Parcel;->writeInterfaceToken(Ljava/lang/String;)V
 
-    .line 450
+    .line 468
     invoke-virtual {v0, p1}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 451
+    .line 469
     iget-object v4, p0, Landroid/hardware/fingerprint/IFingerprintService$Stub$Proxy;->mRemote:Landroid/os/IBinder;
 
     const/16 v5, 0xc
@@ -419,38 +496,38 @@
 
     invoke-interface {v4, v5, v0, v1, v6}, Landroid/os/IBinder;->transact(ILandroid/os/Parcel;Landroid/os/Parcel;I)Z
 
-    .line 452
+    .line 470
     invoke-virtual {v1}, Landroid/os/Parcel;->readException()V
 
-    .line 453
+    .line 471
     invoke-virtual {v1}, Landroid/os/Parcel;->readLong()J
     :try_end_0
     .catchall {:try_start_0 .. :try_end_0} :catchall_0
 
     move-result-wide v2
 
-    .line 456
+    .line 474
     .local v2, "_result":J
     invoke-virtual {v1}, Landroid/os/Parcel;->recycle()V
 
-    .line 457
+    .line 475
     invoke-virtual {v0}, Landroid/os/Parcel;->recycle()V
 
-    .line 459
+    .line 477
     return-wide v2
 
-    .line 455
+    .line 473
     .end local v2    # "_result":J
     :catchall_0
     move-exception v4
 
-    .line 456
+    .line 474
     invoke-virtual {v1}, Landroid/os/Parcel;->recycle()V
 
-    .line 457
+    .line 475
     invoke-virtual {v0}, Landroid/os/Parcel;->recycle()V
 
-    .line 455
+    .line 473
     throw v4
 .end method
 
@@ -477,31 +554,31 @@
     .end annotation
 
     .prologue
-    .line 338
+    .line 356
     invoke-static {}, Landroid/os/Parcel;->obtain()Landroid/os/Parcel;
 
     move-result-object v0
 
-    .line 339
+    .line 357
     .local v0, "_data":Landroid/os/Parcel;
     invoke-static {}, Landroid/os/Parcel;->obtain()Landroid/os/Parcel;
 
     move-result-object v1
 
-    .line 342
+    .line 360
     .local v1, "_reply":Landroid/os/Parcel;
     :try_start_0
     const-string/jumbo v3, "android.hardware.fingerprint.IFingerprintService"
 
     invoke-virtual {v0, v3}, Landroid/os/Parcel;->writeInterfaceToken(Ljava/lang/String;)V
 
-    .line 343
+    .line 361
     invoke-virtual {v0, p1}, Landroid/os/Parcel;->writeInt(I)V
 
-    .line 344
+    .line 362
     invoke-virtual {v0, p2}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 345
+    .line 363
     iget-object v3, p0, Landroid/hardware/fingerprint/IFingerprintService$Stub$Proxy;->mRemote:Landroid/os/IBinder;
 
     const/4 v4, 0x7
@@ -510,10 +587,10 @@
 
     invoke-interface {v3, v4, v0, v1, v5}, Landroid/os/IBinder;->transact(ILandroid/os/Parcel;Landroid/os/Parcel;I)Z
 
-    .line 346
+    .line 364
     invoke-virtual {v1}, Landroid/os/Parcel;->readException()V
 
-    .line 347
+    .line 365
     sget-object v3, Landroid/hardware/fingerprint/Fingerprint;->CREATOR:Landroid/os/Parcelable$Creator;
 
     invoke-virtual {v1, v3}, Landroid/os/Parcel;->createTypedArrayList(Landroid/os/Parcelable$Creator;)Ljava/util/ArrayList;
@@ -522,28 +599,28 @@
 
     move-result-object v2
 
-    .line 350
+    .line 368
     .local v2, "_result":Ljava/util/List;, "Ljava/util/List<Landroid/hardware/fingerprint/Fingerprint;>;"
     invoke-virtual {v1}, Landroid/os/Parcel;->recycle()V
 
-    .line 351
+    .line 369
     invoke-virtual {v0}, Landroid/os/Parcel;->recycle()V
 
-    .line 353
+    .line 371
     return-object v2
 
-    .line 349
+    .line 367
     .end local v2    # "_result":Ljava/util/List;, "Ljava/util/List<Landroid/hardware/fingerprint/Fingerprint;>;"
     :catchall_0
     move-exception v3
 
-    .line 350
+    .line 368
     invoke-virtual {v1}, Landroid/os/Parcel;->recycle()V
 
-    .line 351
+    .line 369
     invoke-virtual {v0}, Landroid/os/Parcel;->recycle()V
 
-    .line 349
+    .line 367
     throw v3
 .end method
 
@@ -551,7 +628,7 @@
     .locals 1
 
     .prologue
-    .line 215
+    .line 233
     const-string/jumbo v0, "android.hardware.fingerprint.IFingerprintService"
 
     return-object v0
@@ -568,31 +645,31 @@
     .end annotation
 
     .prologue
-    .line 420
+    .line 438
     invoke-static {}, Landroid/os/Parcel;->obtain()Landroid/os/Parcel;
 
     move-result-object v0
 
-    .line 421
+    .line 439
     .local v0, "_data":Landroid/os/Parcel;
     invoke-static {}, Landroid/os/Parcel;->obtain()Landroid/os/Parcel;
 
     move-result-object v1
 
-    .line 424
+    .line 442
     .local v1, "_reply":Landroid/os/Parcel;
     :try_start_0
     const-string/jumbo v3, "android.hardware.fingerprint.IFingerprintService"
 
     invoke-virtual {v0, v3}, Landroid/os/Parcel;->writeInterfaceToken(Ljava/lang/String;)V
 
-    .line 425
+    .line 443
     invoke-virtual {v0, p1}, Landroid/os/Parcel;->writeInt(I)V
 
-    .line 426
+    .line 444
     invoke-virtual {v0, p2}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 427
+    .line 445
     iget-object v3, p0, Landroid/hardware/fingerprint/IFingerprintService$Stub$Proxy;->mRemote:Landroid/os/IBinder;
 
     const/16 v4, 0xb
@@ -601,10 +678,10 @@
 
     invoke-interface {v3, v4, v0, v1, v5}, Landroid/os/IBinder;->transact(ILandroid/os/Parcel;Landroid/os/Parcel;I)Z
 
-    .line 428
+    .line 446
     invoke-virtual {v1}, Landroid/os/Parcel;->readException()V
 
-    .line 429
+    .line 447
     invoke-virtual {v1}, Landroid/os/Parcel;->readInt()I
     :try_end_0
     .catchall {:try_start_0 .. :try_end_0} :catchall_0
@@ -615,18 +692,18 @@
 
     const/4 v2, 0x1
 
-    .line 432
+    .line 450
     .local v2, "_result":Z
     :goto_0
     invoke-virtual {v1}, Landroid/os/Parcel;->recycle()V
 
-    .line 433
+    .line 451
     invoke-virtual {v0}, Landroid/os/Parcel;->recycle()V
 
-    .line 435
+    .line 453
     return v2
 
-    .line 429
+    .line 447
     .end local v2    # "_result":Z
     :cond_0
     const/4 v2, 0x0
@@ -634,18 +711,18 @@
     .restart local v2    # "_result":Z
     goto :goto_0
 
-    .line 431
+    .line 449
     .end local v2    # "_result":Z
     :catchall_0
     move-exception v3
 
-    .line 432
+    .line 450
     invoke-virtual {v1}, Landroid/os/Parcel;->recycle()V
 
-    .line 433
+    .line 451
     invoke-virtual {v0}, Landroid/os/Parcel;->recycle()V
 
-    .line 431
+    .line 449
     throw v3
 .end method
 
@@ -660,31 +737,31 @@
     .end annotation
 
     .prologue
-    .line 359
+    .line 377
     invoke-static {}, Landroid/os/Parcel;->obtain()Landroid/os/Parcel;
 
     move-result-object v0
 
-    .line 360
+    .line 378
     .local v0, "_data":Landroid/os/Parcel;
     invoke-static {}, Landroid/os/Parcel;->obtain()Landroid/os/Parcel;
 
     move-result-object v1
 
-    .line 363
+    .line 381
     .local v1, "_reply":Landroid/os/Parcel;
     :try_start_0
     const-string/jumbo v3, "android.hardware.fingerprint.IFingerprintService"
 
     invoke-virtual {v0, v3}, Landroid/os/Parcel;->writeInterfaceToken(Ljava/lang/String;)V
 
-    .line 364
+    .line 382
     invoke-virtual {v0, p1, p2}, Landroid/os/Parcel;->writeLong(J)V
 
-    .line 365
+    .line 383
     invoke-virtual {v0, p3}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 366
+    .line 384
     iget-object v3, p0, Landroid/hardware/fingerprint/IFingerprintService$Stub$Proxy;->mRemote:Landroid/os/IBinder;
 
     const/16 v4, 0x8
@@ -693,10 +770,10 @@
 
     invoke-interface {v3, v4, v0, v1, v5}, Landroid/os/IBinder;->transact(ILandroid/os/Parcel;Landroid/os/Parcel;I)Z
 
-    .line 367
+    .line 385
     invoke-virtual {v1}, Landroid/os/Parcel;->readException()V
 
-    .line 368
+    .line 386
     invoke-virtual {v1}, Landroid/os/Parcel;->readInt()I
     :try_end_0
     .catchall {:try_start_0 .. :try_end_0} :catchall_0
@@ -707,18 +784,18 @@
 
     const/4 v2, 0x1
 
-    .line 371
+    .line 389
     .local v2, "_result":Z
     :goto_0
     invoke-virtual {v1}, Landroid/os/Parcel;->recycle()V
 
-    .line 372
+    .line 390
     invoke-virtual {v0}, Landroid/os/Parcel;->recycle()V
 
-    .line 374
+    .line 392
     return v2
 
-    .line 368
+    .line 386
     .end local v2    # "_result":Z
     :cond_0
     const/4 v2, 0x0
@@ -726,18 +803,18 @@
     .restart local v2    # "_result":Z
     goto :goto_0
 
-    .line 370
+    .line 388
     .end local v2    # "_result":Z
     :catchall_0
     move-exception v3
 
-    .line 371
+    .line 389
     invoke-virtual {v1}, Landroid/os/Parcel;->recycle()V
 
-    .line 372
+    .line 390
     invoke-virtual {v0}, Landroid/os/Parcel;->recycle()V
 
-    .line 370
+    .line 388
     throw v3
 .end method
 
@@ -751,28 +828,28 @@
     .end annotation
 
     .prologue
-    .line 400
+    .line 418
     invoke-static {}, Landroid/os/Parcel;->obtain()Landroid/os/Parcel;
 
     move-result-object v0
 
-    .line 401
+    .line 419
     .local v0, "_data":Landroid/os/Parcel;
     invoke-static {}, Landroid/os/Parcel;->obtain()Landroid/os/Parcel;
 
     move-result-object v1
 
-    .line 404
+    .line 422
     .local v1, "_reply":Landroid/os/Parcel;
     :try_start_0
     const-string/jumbo v3, "android.hardware.fingerprint.IFingerprintService"
 
     invoke-virtual {v0, v3}, Landroid/os/Parcel;->writeInterfaceToken(Ljava/lang/String;)V
 
-    .line 405
+    .line 423
     invoke-virtual {v0, p1}, Landroid/os/Parcel;->writeStrongBinder(Landroid/os/IBinder;)V
 
-    .line 406
+    .line 424
     iget-object v3, p0, Landroid/hardware/fingerprint/IFingerprintService$Stub$Proxy;->mRemote:Landroid/os/IBinder;
 
     const/16 v4, 0xa
@@ -781,38 +858,38 @@
 
     invoke-interface {v3, v4, v0, v1, v5}, Landroid/os/IBinder;->transact(ILandroid/os/Parcel;Landroid/os/Parcel;I)Z
 
-    .line 407
+    .line 425
     invoke-virtual {v1}, Landroid/os/Parcel;->readException()V
 
-    .line 408
+    .line 426
     invoke-virtual {v1}, Landroid/os/Parcel;->readInt()I
     :try_end_0
     .catchall {:try_start_0 .. :try_end_0} :catchall_0
 
     move-result v2
 
-    .line 411
+    .line 429
     .local v2, "_result":I
     invoke-virtual {v1}, Landroid/os/Parcel;->recycle()V
 
-    .line 412
+    .line 430
     invoke-virtual {v0}, Landroid/os/Parcel;->recycle()V
 
-    .line 414
+    .line 432
     return v2
 
-    .line 410
+    .line 428
     .end local v2    # "_result":I
     :catchall_0
     move-exception v3
 
-    .line 411
+    .line 429
     invoke-virtual {v1}, Landroid/os/Parcel;->recycle()V
 
-    .line 412
+    .line 430
     invoke-virtual {v0}, Landroid/os/Parcel;->recycle()V
 
-    .line 410
+    .line 428
     throw v3
 .end method
 
@@ -826,28 +903,28 @@
     .end annotation
 
     .prologue
-    .line 380
+    .line 398
     invoke-static {}, Landroid/os/Parcel;->obtain()Landroid/os/Parcel;
 
     move-result-object v0
 
-    .line 381
+    .line 399
     .local v0, "_data":Landroid/os/Parcel;
     invoke-static {}, Landroid/os/Parcel;->obtain()Landroid/os/Parcel;
 
     move-result-object v1
 
-    .line 384
+    .line 402
     .local v1, "_reply":Landroid/os/Parcel;
     :try_start_0
     const-string/jumbo v4, "android.hardware.fingerprint.IFingerprintService"
 
     invoke-virtual {v0, v4}, Landroid/os/Parcel;->writeInterfaceToken(Ljava/lang/String;)V
 
-    .line 385
+    .line 403
     invoke-virtual {v0, p1}, Landroid/os/Parcel;->writeStrongBinder(Landroid/os/IBinder;)V
 
-    .line 386
+    .line 404
     iget-object v4, p0, Landroid/hardware/fingerprint/IFingerprintService$Stub$Proxy;->mRemote:Landroid/os/IBinder;
 
     const/16 v5, 0x9
@@ -856,38 +933,38 @@
 
     invoke-interface {v4, v5, v0, v1, v6}, Landroid/os/IBinder;->transact(ILandroid/os/Parcel;Landroid/os/Parcel;I)Z
 
-    .line 387
+    .line 405
     invoke-virtual {v1}, Landroid/os/Parcel;->readException()V
 
-    .line 388
+    .line 406
     invoke-virtual {v1}, Landroid/os/Parcel;->readLong()J
     :try_end_0
     .catchall {:try_start_0 .. :try_end_0} :catchall_0
 
     move-result-wide v2
 
-    .line 391
+    .line 409
     .local v2, "_result":J
     invoke-virtual {v1}, Landroid/os/Parcel;->recycle()V
 
-    .line 392
+    .line 410
     invoke-virtual {v0}, Landroid/os/Parcel;->recycle()V
 
-    .line 394
+    .line 412
     return-wide v2
 
-    .line 390
+    .line 408
     .end local v2    # "_result":J
     :catchall_0
     move-exception v4
 
-    .line 391
+    .line 409
     invoke-virtual {v1}, Landroid/os/Parcel;->recycle()V
 
-    .line 392
+    .line 410
     invoke-virtual {v0}, Landroid/os/Parcel;->recycle()V
 
-    .line 390
+    .line 408
     throw v4
 .end method
 
@@ -906,34 +983,34 @@
     .prologue
     const/4 v2, 0x0
 
-    .line 299
+    .line 317
     invoke-static {}, Landroid/os/Parcel;->obtain()Landroid/os/Parcel;
 
     move-result-object v0
 
-    .line 300
+    .line 318
     .local v0, "_data":Landroid/os/Parcel;
     invoke-static {}, Landroid/os/Parcel;->obtain()Landroid/os/Parcel;
 
     move-result-object v1
 
-    .line 302
+    .line 320
     .local v1, "_reply":Landroid/os/Parcel;
     :try_start_0
     const-string/jumbo v3, "android.hardware.fingerprint.IFingerprintService"
 
     invoke-virtual {v0, v3}, Landroid/os/Parcel;->writeInterfaceToken(Ljava/lang/String;)V
 
-    .line 303
+    .line 321
     invoke-virtual {v0, p1}, Landroid/os/Parcel;->writeStrongBinder(Landroid/os/IBinder;)V
 
-    .line 304
+    .line 322
     invoke-virtual {v0, p2}, Landroid/os/Parcel;->writeInt(I)V
 
-    .line 305
+    .line 323
     invoke-virtual {v0, p3}, Landroid/os/Parcel;->writeInt(I)V
 
-    .line 306
+    .line 324
     if-eqz p4, :cond_0
 
     invoke-interface {p4}, Landroid/hardware/fingerprint/IFingerprintServiceReceiver;->asBinder()Landroid/os/IBinder;
@@ -943,7 +1020,7 @@
     :cond_0
     invoke-virtual {v0, v2}, Landroid/os/Parcel;->writeStrongBinder(Landroid/os/IBinder;)V
 
-    .line 307
+    .line 325
     iget-object v2, p0, Landroid/hardware/fingerprint/IFingerprintService$Stub$Proxy;->mRemote:Landroid/os/IBinder;
 
     const/4 v3, 0x5
@@ -952,31 +1029,31 @@
 
     invoke-interface {v2, v3, v0, v1, v4}, Landroid/os/IBinder;->transact(ILandroid/os/Parcel;Landroid/os/Parcel;I)Z
 
-    .line 308
+    .line 326
     invoke-virtual {v1}, Landroid/os/Parcel;->readException()V
     :try_end_0
     .catchall {:try_start_0 .. :try_end_0} :catchall_0
 
-    .line 311
+    .line 329
     invoke-virtual {v1}, Landroid/os/Parcel;->recycle()V
 
-    .line 312
+    .line 330
     invoke-virtual {v0}, Landroid/os/Parcel;->recycle()V
 
-    .line 297
+    .line 315
     return-void
 
-    .line 310
+    .line 328
     :catchall_0
     move-exception v2
 
-    .line 311
+    .line 329
     invoke-virtual {v1}, Landroid/os/Parcel;->recycle()V
 
-    .line 312
+    .line 330
     invoke-virtual {v0}, Landroid/os/Parcel;->recycle()V
 
-    .line 310
+    .line 328
     throw v2
 .end method
 
@@ -992,34 +1069,34 @@
     .end annotation
 
     .prologue
-    .line 319
+    .line 337
     invoke-static {}, Landroid/os/Parcel;->obtain()Landroid/os/Parcel;
 
     move-result-object v0
 
-    .line 320
+    .line 338
     .local v0, "_data":Landroid/os/Parcel;
     invoke-static {}, Landroid/os/Parcel;->obtain()Landroid/os/Parcel;
 
     move-result-object v1
 
-    .line 322
+    .line 340
     .local v1, "_reply":Landroid/os/Parcel;
     :try_start_0
     const-string/jumbo v2, "android.hardware.fingerprint.IFingerprintService"
 
     invoke-virtual {v0, v2}, Landroid/os/Parcel;->writeInterfaceToken(Ljava/lang/String;)V
 
-    .line 323
+    .line 341
     invoke-virtual {v0, p1}, Landroid/os/Parcel;->writeInt(I)V
 
-    .line 324
+    .line 342
     invoke-virtual {v0, p2}, Landroid/os/Parcel;->writeInt(I)V
 
-    .line 325
+    .line 343
     invoke-virtual {v0, p3}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
 
-    .line 326
+    .line 344
     iget-object v2, p0, Landroid/hardware/fingerprint/IFingerprintService$Stub$Proxy;->mRemote:Landroid/os/IBinder;
 
     const/4 v3, 0x6
@@ -1028,30 +1105,98 @@
 
     invoke-interface {v2, v3, v0, v1, v4}, Landroid/os/IBinder;->transact(ILandroid/os/Parcel;Landroid/os/Parcel;I)Z
 
-    .line 327
+    .line 345
     invoke-virtual {v1}, Landroid/os/Parcel;->readException()V
     :try_end_0
     .catchall {:try_start_0 .. :try_end_0} :catchall_0
 
-    .line 330
+    .line 348
     invoke-virtual {v1}, Landroid/os/Parcel;->recycle()V
 
-    .line 331
+    .line 349
     invoke-virtual {v0}, Landroid/os/Parcel;->recycle()V
 
-    .line 317
+    .line 335
     return-void
 
-    .line 329
+    .line 347
     :catchall_0
     move-exception v2
 
-    .line 330
+    .line 348
     invoke-virtual {v1}, Landroid/os/Parcel;->recycle()V
 
-    .line 331
+    .line 349
     invoke-virtual {v0}, Landroid/os/Parcel;->recycle()V
 
-    .line 329
+    .line 347
+    throw v2
+.end method
+
+.method public resetTimeout([B)V
+    .locals 5
+    .param p1, "cryptoToken"    # [B
+    .annotation system Ldalvik/annotation/Throws;
+        value = {
+            Landroid/os/RemoteException;
+        }
+    .end annotation
+
+    .prologue
+    .line 483
+    invoke-static {}, Landroid/os/Parcel;->obtain()Landroid/os/Parcel;
+
+    move-result-object v0
+
+    .line 484
+    .local v0, "_data":Landroid/os/Parcel;
+    invoke-static {}, Landroid/os/Parcel;->obtain()Landroid/os/Parcel;
+
+    move-result-object v1
+
+    .line 486
+    .local v1, "_reply":Landroid/os/Parcel;
+    :try_start_0
+    const-string/jumbo v2, "android.hardware.fingerprint.IFingerprintService"
+
+    invoke-virtual {v0, v2}, Landroid/os/Parcel;->writeInterfaceToken(Ljava/lang/String;)V
+
+    .line 487
+    invoke-virtual {v0, p1}, Landroid/os/Parcel;->writeByteArray([B)V
+
+    .line 488
+    iget-object v2, p0, Landroid/hardware/fingerprint/IFingerprintService$Stub$Proxy;->mRemote:Landroid/os/IBinder;
+
+    const/16 v3, 0xd
+
+    const/4 v4, 0x0
+
+    invoke-interface {v2, v3, v0, v1, v4}, Landroid/os/IBinder;->transact(ILandroid/os/Parcel;Landroid/os/Parcel;I)Z
+
+    .line 489
+    invoke-virtual {v1}, Landroid/os/Parcel;->readException()V
+    :try_end_0
+    .catchall {:try_start_0 .. :try_end_0} :catchall_0
+
+    .line 492
+    invoke-virtual {v1}, Landroid/os/Parcel;->recycle()V
+
+    .line 493
+    invoke-virtual {v0}, Landroid/os/Parcel;->recycle()V
+
+    .line 481
+    return-void
+
+    .line 491
+    :catchall_0
+    move-exception v2
+
+    .line 492
+    invoke-virtual {v1}, Landroid/os/Parcel;->recycle()V
+
+    .line 493
+    invoke-virtual {v0}, Landroid/os/Parcel;->recycle()V
+
+    .line 491
     throw v2
 .end method

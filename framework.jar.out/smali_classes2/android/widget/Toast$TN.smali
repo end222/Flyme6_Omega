@@ -22,6 +22,8 @@
 
 
 # instance fields
+.field mFlymeToastType:I
+
 .field mGravity:I
 
 .field final mHandler:Landroid/os/Handler;
@@ -62,78 +64,65 @@
     .prologue
     const/4 v2, -0x2
 
-    .line 363
     invoke-direct {p0}, Landroid/app/ITransientNotification$Stub;-><init>()V
 
-    .line 333
     new-instance v1, Landroid/widget/Toast$TN$1;
 
     invoke-direct {v1, p0}, Landroid/widget/Toast$TN$1;-><init>(Landroid/widget/Toast$TN;)V
 
     iput-object v1, p0, Landroid/widget/Toast$TN;->mShow:Ljava/lang/Runnable;
 
-    .line 340
     new-instance v1, Landroid/widget/Toast$TN$2;
 
     invoke-direct {v1, p0}, Landroid/widget/Toast$TN$2;-><init>(Landroid/widget/Toast$TN;)V
 
     iput-object v1, p0, Landroid/widget/Toast$TN;->mHide:Ljava/lang/Runnable;
 
-    .line 349
     new-instance v1, Landroid/view/WindowManager$LayoutParams;
 
     invoke-direct {v1}, Landroid/view/WindowManager$LayoutParams;-><init>()V
 
     iput-object v1, p0, Landroid/widget/Toast$TN;->mParams:Landroid/view/WindowManager$LayoutParams;
 
-    .line 350
     new-instance v1, Landroid/os/Handler;
 
     invoke-direct {v1}, Landroid/os/Handler;-><init>()V
 
     iput-object v1, p0, Landroid/widget/Toast$TN;->mHandler:Landroid/os/Handler;
 
-    .line 366
     iget-object v0, p0, Landroid/widget/Toast$TN;->mParams:Landroid/view/WindowManager$LayoutParams;
 
-    .line 367
     .local v0, "params":Landroid/view/WindowManager$LayoutParams;
     iput v2, v0, Landroid/view/WindowManager$LayoutParams;->height:I
 
-    .line 368
     iput v2, v0, Landroid/view/WindowManager$LayoutParams;->width:I
 
-    .line 369
     const/4 v1, -0x3
 
     iput v1, v0, Landroid/view/WindowManager$LayoutParams;->format:I
 
-    .line 370
-    const v1, 0x1030004
+    const v1, #android:style@Animation.Toast#t
 
     iput v1, v0, Landroid/view/WindowManager$LayoutParams;->windowAnimations:I
 
-    .line 371
     const/16 v1, 0x7d5
 
     iput v1, v0, Landroid/view/WindowManager$LayoutParams;->type:I
 
-    .line 372
-    const-string/jumbo v1, "Toast"
+    const-string v1, "Toast"
 
     invoke-virtual {v0, v1}, Landroid/view/WindowManager$LayoutParams;->setTitle(Ljava/lang/CharSequence;)V
 
-    .line 373
     const/16 v1, 0x98
 
     iput v1, v0, Landroid/view/WindowManager$LayoutParams;->flags:I
 
-    .line 377
+    invoke-direct {p0, v0}, Landroid/widget/Toast$TN;->initFlymeExtraFields(Landroid/view/WindowManager$LayoutParams;)V
+
     const/16 v1, 0x10
 
     iput v1, v0, Landroid/view/WindowManager$LayoutParams;->privateFlags:I
 
-    .line 363
     return-void
 .end method
 
@@ -244,6 +233,8 @@
 
     .line 453
     :cond_1
+    invoke-static {}, Landroid/widget/Toast$FlymeInjector;->resetFlymeExtraFields()V
+
     return-void
 .end method
 
@@ -380,33 +371,30 @@
 
     iput v5, v4, Landroid/view/WindowManager$LayoutParams;->x:I
 
-    .line 423
     iget-object v4, p0, Landroid/widget/Toast$TN;->mParams:Landroid/view/WindowManager$LayoutParams;
 
     iget v5, p0, Landroid/widget/Toast$TN;->mY:I
 
     iput v5, v4, Landroid/view/WindowManager$LayoutParams;->y:I
 
-    .line 424
     iget-object v4, p0, Landroid/widget/Toast$TN;->mParams:Landroid/view/WindowManager$LayoutParams;
 
     iget v5, p0, Landroid/widget/Toast$TN;->mVerticalMargin:F
 
     iput v5, v4, Landroid/view/WindowManager$LayoutParams;->verticalMargin:F
 
-    .line 425
     iget-object v4, p0, Landroid/widget/Toast$TN;->mParams:Landroid/view/WindowManager$LayoutParams;
 
     iget v5, p0, Landroid/widget/Toast$TN;->mHorizontalMargin:F
 
     iput v5, v4, Landroid/view/WindowManager$LayoutParams;->horizontalMargin:F
 
-    .line 426
     iget-object v4, p0, Landroid/widget/Toast$TN;->mParams:Landroid/view/WindowManager$LayoutParams;
 
     iput-object v3, v4, Landroid/view/WindowManager$LayoutParams;->packageName:Ljava/lang/String;
 
-    .line 427
+    invoke-direct/range {p0 .. p0}, Landroid/widget/Toast$TN;->hookFlymeToastType()V
+
     iget-object v4, p0, Landroid/widget/Toast$TN;->mView:Landroid/view/View;
 
     invoke-virtual {v4}, Landroid/view/View;->getParent()Landroid/view/ViewParent;
@@ -471,5 +459,42 @@
     invoke-virtual {v0, v1}, Landroid/os/Handler;->post(Ljava/lang/Runnable;)Z
 
     .line 384
+    return-void
+.end method
+
+.method private hookFlymeToastType()V
+    .locals 2
+
+    .prologue
+    iget-object v0, p0, Landroid/widget/Toast$TN;->mParams:Landroid/view/WindowManager$LayoutParams;
+
+    iget v1, p0, Landroid/widget/Toast$TN;->mFlymeToastType:I
+
+    iput v1, v0, Landroid/view/WindowManager$LayoutParams;->type:I
+
+    return-void
+.end method
+
+.method private initFlymeExtraFields(Landroid/view/WindowManager$LayoutParams;)V
+    .locals 2
+    .param p1, "params"    # Landroid/view/WindowManager$LayoutParams;
+
+    .prologue
+    const/16 v0, 0x7d5
+
+    iput v0, p0, Landroid/widget/Toast$TN;->mFlymeToastType:I
+
+    sget v0, Lcom/flyme/internal/R$style;->Animation_Flyme_MzToast:I
+
+    iput v0, p1, Landroid/view/WindowManager$LayoutParams;->windowAnimations:I
+
+    iget-object v0, p1, Landroid/view/WindowManager$LayoutParams;->meizuParams:Landroid/view/MeizuLayoutParams;
+
+    iget v1, v0, Landroid/view/MeizuLayoutParams;->flags:I
+
+    or-int/lit8 v1, v1, 0x40
+
+    iput v1, v0, Landroid/view/MeizuLayoutParams;->flags:I
+
     return-void
 .end method

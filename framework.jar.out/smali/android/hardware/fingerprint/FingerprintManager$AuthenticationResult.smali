@@ -27,16 +27,16 @@
     .param p2, "fingerprint"    # Landroid/hardware/fingerprint/Fingerprint;
 
     .prologue
-    .line 268
+    .line 269
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 269
+    .line 270
     iput-object p1, p0, Landroid/hardware/fingerprint/FingerprintManager$AuthenticationResult;->mCryptoObject:Landroid/hardware/fingerprint/FingerprintManager$CryptoObject;
 
-    .line 270
+    .line 271
     iput-object p2, p0, Landroid/hardware/fingerprint/FingerprintManager$AuthenticationResult;->mFingerprint:Landroid/hardware/fingerprint/Fingerprint;
 
-    .line 268
+    .line 269
     return-void
 .end method
 
@@ -46,7 +46,7 @@
     .locals 1
 
     .prologue
-    .line 278
+    .line 279
     iget-object v0, p0, Landroid/hardware/fingerprint/FingerprintManager$AuthenticationResult;->mCryptoObject:Landroid/hardware/fingerprint/FingerprintManager$CryptoObject;
 
     return-object v0
@@ -56,7 +56,7 @@
     .locals 1
 
     .prologue
-    .line 286
+    .line 287
     iget-object v0, p0, Landroid/hardware/fingerprint/FingerprintManager$AuthenticationResult;->mFingerprint:Landroid/hardware/fingerprint/Fingerprint;
 
     return-object v0

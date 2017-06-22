@@ -130,12 +130,10 @@
     .param p1, "event"    # Landroid/view/InputEvent;
 
     .prologue
-    .line 6717
     instance-of v0, p1, Landroid/view/KeyEvent;
 
     if-eqz v0, :cond_0
 
-    .line 6718
     iget-object v1, p0, Landroid/view/ViewRootImpl$WindowInputEventReceiver;->this$0:Landroid/view/ViewRootImpl;
 
     move-object v0, p1
@@ -162,6 +160,10 @@
 
     .line 6727
     :goto_0
+    iget-object v0, p0, Landroid/view/ViewRootImpl$WindowInputEventReceiver;->this$0:Landroid/view/ViewRootImpl;
+
+    invoke-virtual {v0, p1}, Landroid/view/ViewRootImpl;->processEventForMoveWinIfNeed(Landroid/view/InputEvent;)V
+
     iget-object v0, p0, Landroid/view/ViewRootImpl$WindowInputEventReceiver;->this$0:Landroid/view/ViewRootImpl;
 
     const/4 v1, 0x0

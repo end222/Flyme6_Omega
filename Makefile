@@ -138,8 +138,8 @@ vendor_modify_jars := framework mediatek-framework mediatek-telephony-common ser
 # The default value is Nexus-6P_Unofficial.
 # You should configure the property according to your device and your ID with replace the "Nexus-6P_Unofficial".
 override_property += \
-    ro.flyme.romer=Unofficial \
-    ro.product.model_romer=Nexus-6P_Unofficial
+    ro.flyme.romer=sharlion \
+    ro.product.model_romer=Nikel_sharlion_Unofficial
 
 ##############################################################################
 # The value decides which property you will remove from the build.prop.
@@ -175,7 +175,7 @@ override_property += \
 # Will fall back to a file-based OTA if the target_files is older and doesn't support block-based OTAs.
 # Default: true
 #-----------------------------------------------------------------------------
-#PRODUCE_BLOCK_BASED_OTA := false
+PRODUCE_BLOCK_BASED_OTA := false
 
 ##############################################################################
 # Defines whether build an international version of package.
@@ -190,3 +190,8 @@ override_property += \
 #PRODUCE_SEPOLICY_INJECT := false
 
 include $(PORT_BUILD)/main.mk
+
+
+# To define any local-target
+local-pre-zip-misc:
+	cp -rf other/system $(ZIP_DIR)/
